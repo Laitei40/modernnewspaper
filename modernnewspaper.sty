@@ -211,3 +211,280 @@
 % End
 % ----------------------------------------------------
 \endinput
+% modernnewspaper.sty
+%
+% A modern, Unicode-first newspaper package for LaTeX
+%
+% Copyright (C) 2026 Laitei <laitei@proton.me>
+%
+% This work is distributed under the LaTeX Project Public License (LPPL),
+% version 1.3c or later.
+% See the file LICENSE or https://www.latex-project.org/lppl.txt
+%
+% ----------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+<<<<<<< HEAD
+\ProvidesPackage{modernnewspaper}[2026/01/07 v0.2.1 Modern Newspaper Package]
+=======
+\ProvidesPackage{modernnewspaper}[2026/01/06 v0.2.0 Modern Newspaper Package]
+>>>>>>> 8cd3f61 (Auto: commit local edits before push)
+
+% ----------------------------------------------------
+% Engine check (Unicode required)
+% ----------------------------------------------------
+\RequirePackage{iftex}
+\ifPDFTeX
+  \PackageError{modernnewspaper}
+    {pdfLaTeX is not supported}
+    {Use XeLaTeX or LuaLaTeX for Unicode support}
+\fi
+
+% ----------------------------------------------------
+% Required packages
+% ----------------------------------------------------
+\RequirePackage{fontspec}
+\RequirePackage{geometry}
+\RequirePackage{multicol}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{setspace}
+\RequirePackage{lettrine}
+\RequirePackage{wrapfig}
+
+% RTL support
+\RequirePackage{polyglossia}
+\RequirePackage{bidi}
+
+% RTL
+\RequirePackage{polyglossia}
+\RequirePackage{bidi}
+
+% ----------------------------------------------------
+% Page layout
+% ----------------------------------------------------
+\geometry{
+  a4paper,
+  margin=20mm,
+  headsep=10mm
+}
+
+% ----------------------------------------------------
+<<<<<<< HEAD
+% Typography tuning
+=======
+% Typography tuning (newspaper-friendly)
+% ----------------------------------------------------
+\pretolerance=10000
+\tolerance=10000
+\emergencystretch=2em
+
+% ----------------------------------------------------
+% Fonts (safe defaults – user can override)
+>>>>>>> 8cd3f61 (Auto: commit local edits before push)
+% ----------------------------------------------------
+\pretolerance=10000
+\tolerance=10000
+\emergencystretch=2em
+
+% ----------------------------------------------------
+% Fonts (safe defaults)
+% ----------------------------------------------------
+\defaultfontfeatures{Ligatures=TeX}
+
+% Latin
+\setmainfont{TeX Gyre Termes}
+
+% Arabic
+\newfontfamily\ArabicFont{Amiri}
+
+% Devanagari (Hindi)
+\newfontfamily\DevaFont{Noto Serif Devanagari}
+
+% Myanmar
+\newfontfamily\MyanmarFont{Noto Serif Myanmar}
+
+% Chinese (CJK)
+\newfontfamily\CJKFont{Noto Serif CJK SC}
+
+% ----------------------------------------------------
+% Hyperref
+% ----------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  pdfcreator={modernnewspaper}
+}
+
+% ----------------------------------------------------
+% Metadata storage
+% ----------------------------------------------------
+\newcommand{\MN@PaperName}{}
+\newcommand{\MN@PaperSlogan}{}
+\newcommand{\MN@PaperLocation}{}
+\newcommand{\MN@PaperWebsite}{}
+\newcommand{\MN@PaperVolume}{}
+\newcommand{\MN@PaperIssue}{}
+\newcommand{\MN@PaperDate}{\today}
+
+% ----------------------------------------------------
+% Metadata setters
+% ----------------------------------------------------
+\newcommand{\SetPaperName}[1]{\renewcommand{\MN@PaperName}{#1}}
+\newcommand{\SetPaperSlogan}[1]{\renewcommand{\MN@PaperSlogan}{#1}}
+\newcommand{\SetPaperLocation}[1]{\renewcommand{\MN@PaperLocation}{#1}}
+\newcommand{\SetPaperWebsite}[1]{\renewcommand{\MN@PaperWebsite}{#1}}
+\newcommand{\SetPaperVolume}[1]{\renewcommand{\MN@PaperVolume}{#1}}
+\newcommand{\SetPaperIssue}[1]{\renewcommand{\MN@PaperIssue}{#1}}
+\newcommand{\SetPaperDate}[1]{\renewcommand{\MN@PaperDate}{#1}}
+
+% ----------------------------------------------------
+% Masthead
+% ----------------------------------------------------
+\newcommand{\MakePaperHeader}{
+  \begin{center}
+    {\Huge\bfseries \MN@PaperName \par}
+    \vspace{4pt}
+    {\itshape \MN@PaperSlogan \par}
+    \vspace{6pt}
+    {\small
+      \MN@PaperLocation \quad | \quad
+      Vol.~\MN@PaperVolume, No.~\MN@PaperIssue \quad | \quad
+      \MN@PaperDate \quad | \quad
+      \href{\MN@PaperWebsite}{\MN@PaperWebsite}
+    }
+  \end{center}
+  \vspace{1em}
+  \hrule
+  \vspace{1.5em}
+}
+
+% ----------------------------------------------------
+% Article styles
+% ----------------------------------------------------
+\newcommand{\headlinestyle}{\Large\bfseries}
+\newcommand{\bylinestyle}{\itshape}
+\newcommand{\datelinestyle}{\small}
+
+% ----------------------------------------------------
+<<<<<<< HEAD
+% Localization
+=======
+% Localization (By word)
+>>>>>>> 8cd3f61 (Auto: commit local edits before push)
+% ----------------------------------------------------
+\newcommand{\MN@ByWord}{By}
+\newcommand{\SetByWord}[1]{\renewcommand{\MN@ByWord}{#1}}
+
+% ----------------------------------------------------
+% Article commands
+% ----------------------------------------------------
+\newcommand{\headline}[1]{%
+  \par\bigskip
+  {\headlinestyle #1\par}
+  \medskip
+}
+
+\newcommand{\byline}[1]{%
+  {\bylinestyle \MN@ByWord\ #1\par}
+  \smallskip
+}
+
+\newcommand{\dateline}[1]{%
+  {\datelinestyle #1\par}
+  \medskip
+}
+
+% ----------------------------------------------------
+<<<<<<< HEAD
+% Unicode-safe Drop Cap
+% ----------------------------------------------------
+\newcommand{\DropCap}[1]{%
+  {\parindent0pt
+   \hangindent=2em
+   \hangafter=1
+   {\fontsize{36pt}{36pt}\selectfont\bfseries #1}}%
+=======
+% Drop Cap (Step 1)
+% ----------------------------------------------------
+\newcommand{\DropCap}[2][]{%
+  \lettrine[lines=3,lhang=0.1,#1]{#2}{}%
+}
+
+% ----------------------------------------------------
+% Image-wrapped article image (Step 2)
+% ----------------------------------------------------
+\newcommand{\ArticleImage}[4][r]{%
+  \begin{wrapfigure}{#1}{#2}
+    \centering
+    \includegraphics[width=#2]{#3}
+    \caption{#4}
+  \end{wrapfigure}
+}
+
+% ----------------------------------------------------
+% RTL support (Step 3)
+% ----------------------------------------------------
+\newif\ifMN@RTL
+\MN@RTLfalse
+
+\newcommand{\EnableRTL}{\MN@RTLtrue}
+\newcommand{\DisableRTL}{\MN@RTLfalse}
+
+% ----------------------------------------------------
+% Article environment
+% ----------------------------------------------------
+\newenvironment{article}{
+  \par
+  \setstretch{1.03}
+  \ifMN@RTL\beginR\fi
+}{
+  \ifMN@RTL\endR\fi
+  \par\medskip
+>>>>>>> 8cd3f61 (Auto: commit local edits before push)
+}
+
+% ----------------------------------------------------
+% Column-safe image (NO wrapfig)
+% ----------------------------------------------------
+\newcommand{\ArticleImage}[3]{%
+  \begin{center}
+    \includegraphics[width=#1]{#2}
+    \par\smallskip
+    {\small\itshape #3}
+  \end{center}
+}
+
+% ----------------------------------------------------
+% RTL toggle
+% ----------------------------------------------------
+\newif\ifMN@RTL
+\MN@RTLfalse
+
+\newcommand{\EnableRTL}{\MN@RTLtrue}
+\newcommand{\DisableRTL}{\MN@RTLfalse}
+
+% ----------------------------------------------------
+% Article environment
+% ----------------------------------------------------
+\newenvironment{article}{
+  \par
+  \setstretch{1.03}
+  \ifMN@RTL\beginR\fi
+}{
+  \ifMN@RTL\endR\fi
+  \par\medskip
+}
+
+% ----------------------------------------------------
+% Columns
+% ----------------------------------------------------
+\newcommand{\BeginNewsColumns}[1]{\begin{multicols}{#1}}
+\newcommand{\EndNewsColumns}{\end{multicols}}
+
+% ----------------------------------------------------
+% End
+% ----------------------------------------------------
+\endinput
