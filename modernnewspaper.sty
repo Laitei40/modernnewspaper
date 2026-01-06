@@ -2,7 +2,7 @@
 %
 % A modern, Unicode-first newspaper package for LaTeX
 %
-% % Copyright (C) 2026 Laitei <laitei@proton.me>
+% Copyright (C) 2026 Laitei <laitei@proton.me>
 %
 % This work is distributed under the LaTeX Project Public License (LPPL),
 % version 1.3c or later.
@@ -11,7 +11,7 @@
 % ----------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{modernnewspaper}[2026/01/05 v0.1.0 Modern Newspaper Package]
+\ProvidesPackage{modernnewspaper}[2026/01/07 v0.2.1 Modern Newspaper Package]
 
 % ----------------------------------------------------
 % Engine check (Unicode required)
@@ -34,6 +34,10 @@
 \RequirePackage{hyperref}
 \RequirePackage{setspace}
 
+% RTL
+\RequirePackage{polyglossia}
+\RequirePackage{bidi}
+
 % ----------------------------------------------------
 % Page layout
 % ----------------------------------------------------
@@ -44,14 +48,34 @@
 }
 
 % ----------------------------------------------------
-% Fonts (safe defaults – user can override)
+% Typography tuning
 % ----------------------------------------------------
-\defaultfontfeatures{Ligatures=TeX}
-\setmainfont{TeX Gyre Termes}
-\setsansfont{TeX Gyre Heros}
+\pretolerance=10000
+\tolerance=10000
+\emergencystretch=2em
 
 % ----------------------------------------------------
-% Hyperref setup
+% Fonts (safe defaults)
+% ----------------------------------------------------
+\defaultfontfeatures{Ligatures=TeX}
+
+% Latin
+\setmainfont{TeX Gyre Termes}
+
+% Arabic
+\newfontfamily\ArabicFont{Amiri}
+
+% Devanagari (Hindi)
+\newfontfamily\DevaFont{Noto Serif Devanagari}
+
+% Myanmar
+\newfontfamily\MyanmarFont{Noto Serif Myanmar}
+
+% Chinese (CJK)
+\newfontfamily\CJKFont{Noto Serif CJK SC}
+
+% ----------------------------------------------------
+% Hyperref
 % ----------------------------------------------------
 \hypersetup{
   colorlinks=true,
@@ -72,7 +96,7 @@
 \newcommand{\MN@PaperDate}{\today}
 
 % ----------------------------------------------------
-% Metadata setters (public API)
+% Metadata setters
 % ----------------------------------------------------
 \newcommand{\SetPaperName}[1]{\renewcommand{\MN@PaperName}{#1}}
 \newcommand{\SetPaperSlogan}[1]{\renewcommand{\MN@PaperSlogan}{#1}}
@@ -104,11 +128,17 @@
 }
 
 % ----------------------------------------------------
-% Article styles (customisable)
+% Article styles
 % ----------------------------------------------------
 \newcommand{\headlinestyle}{\Large\bfseries}
 \newcommand{\bylinestyle}{\itshape}
 \newcommand{\datelinestyle}{\small}
+
+% ----------------------------------------------------
+% Localization
+% ----------------------------------------------------
+\newcommand{\MN@ByWord}{By}
+\newcommand{\SetByWord}[1]{\renewcommand{\MN@ByWord}{#1}}
 
 % ----------------------------------------------------
 % Article commands
@@ -120,7 +150,7 @@
 }
 
 \newcommand{\byline}[1]{%
-  {\bylinestyle By #1\par}
+  {\bylinestyle \MN@ByWord\ #1\par}
   \smallskip
 }
 
@@ -130,22 +160,54 @@
 }
 
 % ----------------------------------------------------
-% Article environment (recommended)
+% Unicode-safe Drop Cap
 % ----------------------------------------------------
-\newenvironment{article}{
-  \par
-  \setstretch{1.05}
-}{
-  \par\bigskip
+\newcommand{\DropCap}[1]{%
+  {\parindent0pt
+   \hangindent=2em
+   \hangafter=1
+   {\fontsize{36pt}{36pt}\selectfont\bfseries #1}}%
 }
 
 % ----------------------------------------------------
-% Column helper
+% Column-safe image (NO wrapfig)
+% ----------------------------------------------------
+\newcommand{\ArticleImage}[3]{%
+  \begin{center}
+    \includegraphics[width=#1]{#2}
+    \par\smallskip
+    {\small\itshape #3}
+  \end{center}
+}
+
+% ----------------------------------------------------
+% RTL toggle
+% ----------------------------------------------------
+\newif\ifMN@RTL
+\MN@RTLfalse
+
+\newcommand{\EnableRTL}{\MN@RTLtrue}
+\newcommand{\DisableRTL}{\MN@RTLfalse}
+
+% ----------------------------------------------------
+% Article environment
+% ----------------------------------------------------
+\newenvironment{article}{
+  \par
+  \setstretch{1.03}
+  \ifMN@RTL\beginR\fi
+}{
+  \ifMN@RTL\endR\fi
+  \par\medskip
+}
+
+% ----------------------------------------------------
+% Columns
 % ----------------------------------------------------
 \newcommand{\BeginNewsColumns}[1]{\begin{multicols}{#1}}
 \newcommand{\EndNewsColumns}{\end{multicols}}
 
 % ----------------------------------------------------
-% End of package
+% End
 % ----------------------------------------------------
 \endinput
