@@ -1,0 +1,240 @@
+\documentclass[a4paper,11pt]{article}
+
+% --------------------------------------------------
+% Engine requirement
+% --------------------------------------------------
+\usepackage{iftex}
+\ifPDFTeX
+  \errmessage{This manual must be compiled with XeLaTeX or LuaLaTeX}
+\fi
+
+% --------------------------------------------------
+% Packages
+% --------------------------------------------------
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+% --------------------------------------------------
+% Page layout
+% --------------------------------------------------
+\geometry{margin=25mm}
+
+% --------------------------------------------------
+% Fonts
+% --------------------------------------------------
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+
+% --------------------------------------------------
+% Hyperref setup
+% --------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  pdftitle={modernnewspaper Package Manual},
+  pdfauthor={Laithon}
+}
+
+% --------------------------------------------------
+% Listings setup
+% --------------------------------------------------
+\lstset{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  keywordstyle=\color{blue}
+}
+
+% --------------------------------------------------
+% Title info
+% --------------------------------------------------
+\title{\textbf{modernnewspaper}\\
+A Modern Newspaper Package for LaTeX}
+\author{Laithon}
+\date{Version 0.1.0 --- January 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The \textbf{modernnewspaper} package is a modern, Unicode-first LaTeX
+package for creating newspaper-style documents. It is designed as a
+clean and extensible alternative to the legacy \texttt{newspaper}
+package.
+
+The package supports modern typographic workflows, multilingual text,
+and web-oriented metadata such as website URLs, while remaining suitable
+for print output.
+
+\section{Requirements}
+
+This package \textbf{requires} one of the following engines:
+
+\begin{itemize}
+  \item XeLaTeX
+  \item LuaLaTeX
+\end{itemize}
+
+The package does \textbf{not} support pdfLaTeX, as Unicode support is
+mandatory.
+
+\section{Installation}
+
+\subsection{Local Installation}
+
+Copy \texttt{modernnewspaper.sty} into the same directory as your
+\texttt{.tex} file.
+
+\subsection{User Installation}
+
+Alternatively, install it into your local \texttt{texmf} tree:
+
+\begin{verbatim}
+~/texmf/tex/latex/modernnewspaper/
+\end{verbatim}
+
+\section{Basic Usage}
+
+Load the package in the document preamble:
+
+\begin{lstlisting}
+\usepackage{modernnewspaper}
+\end{lstlisting}
+
+\section{Metadata Commands}
+
+The following commands configure the newspaper metadata:
+
+\begin{lstlisting}
+\SetPaperName{Modern Newspaper}
+\SetPaperSlogan{Informing the future}
+\SetPaperLocation{Yangon, Myanmar}
+\SetPaperWebsite{https://example.com}
+\SetPaperVolume{1}
+\SetPaperIssue{1}
+\SetPaperDate{\today}
+\end{lstlisting}
+
+\section{Masthead}
+
+To typeset the newspaper masthead, use:
+
+\begin{lstlisting}
+\MakePaperHeader
+\end{lstlisting}
+
+This command prints the paper name, slogan, location, volume, issue,
+date, and website URL.
+
+\section{Columns}
+
+Newspaper content is typically set in multiple columns.
+
+\begin{lstlisting}
+\BeginNewsColumns{2}
+% content
+\EndNewsColumns
+\end{lstlisting}
+
+The number of columns may be adjusted as needed.
+
+\section{Articles}
+
+Articles are created using the \texttt{article} environment together
+with headline and byline commands.
+
+\subsection{Headline}
+
+\begin{lstlisting}
+\headline{Article Title}
+\end{lstlisting}
+
+\subsection{Byline}
+
+\begin{lstlisting}
+\byline{Author Name}
+\end{lstlisting}
+
+\subsection{Article Environment}
+
+\begin{lstlisting}
+\begin{article}
+\headline{Sample Article}
+\byline{Editor}
+
+This is the article body text.
+\end{article}
+\end{lstlisting}
+
+\section{Unicode Support}
+
+The \textbf{modernnewspaper} package fully supports Unicode text. For
+example:
+
+\begin{quote}
+မြန်မာစာ · العربية · हिन्दी · 中文 · English
+\end{quote}
+
+No additional configuration is required.
+
+\section{Customization}
+
+Users may redefine headline and byline styles:
+
+\begin{lstlisting}
+\renewcommand{\headlinestyle}{\Large\bfseries}
+\renewcommand{\bylinestyle}{\itshape}
+\end{lstlisting}
+
+\section{Limitations}
+
+Current version limitations include:
+
+\begin{itemize}
+  \item No built-in image wrapping
+  \item No drop caps
+  \item No theme system
+  \item Limited RTL support
+\end{itemize}
+
+These features are planned for future releases.
+
+\section{Roadmap}
+
+Planned improvements include:
+
+\begin{itemize}
+  \item Drop caps
+  \item Image-wrapped articles
+  \item RTL language support
+  \item Theme system
+  \item Accessibility improvements
+  \item CTAN submission
+\end{itemize}
+
+\section{License}
+
+This package is distributed under the
+\textbf{LaTeX Project Public License (LPPL) v1.3c}.
+
+See the \texttt{LICENSE} file or visit:
+\begin{center}
+\url{https://www.latex-project.org/lppl.txt}
+\end{center}
+
+\section{Contact}
+
+Project repository:
+
+\begin{center}
+\url{https://github.com/laithon/modernnewspaper}
+\end{center}
+
+\end{document}

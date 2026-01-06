@@ -1,0 +1,8 @@
+*.aux
+*.log
+*.toc
+*.out
+*.pdf
+*~
+# LaTeX intermediate files
+*.synctex.gz

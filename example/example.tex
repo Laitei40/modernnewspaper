@@ -1,0 +1,63 @@
+\documentclass{article}
+
+% Load the modern newspaper package
+\usepackage{modernnewspaper}
+
+% -------------------------------
+% Newspaper metadata
+% -------------------------------
+\SetPaperName{Modern Newspaper}
+\SetPaperSlogan{Informing and educating for tomorrow}
+\SetPaperLocation{Yangon, Myanmar}
+\SetPaperWebsite{https://github.com/laithon/modernnewspaper}
+\SetPaperVolume{1}
+\SetPaperIssue{1}
+\SetPaperDate{\today}
+
+\begin{document}
+
+% -------------------------------
+% Masthead
+% -------------------------------
+\MakePaperHeader
+
+% -------------------------------
+% Newspaper content
+% -------------------------------
+\BeginNewsColumns{2}
+
+\begin{article}
+\headline{A Modern LaTeX Newspaper Package Is Born}
+\byline{Laithon}
+
+This is an example document demonstrating the
+\textbf{modernnewspaper} package. The goal of this package is to
+provide a clean, Unicode-first newspaper layout that works well for
+both print and digital publications.
+
+The package is designed for use with \textit{XeLaTeX} or
+\textit{LuaLaTeX} and supports multilingual text out of the box.
+
+Unicode test:
+
+\medskip
+\noindent
+မြန်မာစာ · العربية · हिन्दी · 中文 · English
+\end{article}
+
+\begin{article}
+\headline{Why a New Newspaper Package?}
+\byline{Editor}
+
+The traditional \texttt{newspaper} package is print-oriented and
+predates modern Unicode workflows. This project introduces native
+support for web metadata such as website URLs, modern typography, and
+clean extensibility.
+
+Future versions will include drop caps, image wrapping, RTL support,
+themes, and improved accessibility.
+\end{article}
+
+\EndNewsColumns
+
+\end{document}

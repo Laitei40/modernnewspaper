@@ -1,0 +1,151 @@
+% modernnewspaper.sty
+%
+% A modern, Unicode-first newspaper package for LaTeX
+%
+% % Copyright (C) 2026 Laitei <laitei@proton.me>
+%
+% This work is distributed under the LaTeX Project Public License (LPPL),
+% version 1.3c or later.
+% See the file LICENSE or https://www.latex-project.org/lppl.txt
+%
+% ----------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{modernnewspaper}[2026/01/05 v0.1.0 Modern Newspaper Package]
+
+% ----------------------------------------------------
+% Engine check (Unicode required)
+% ----------------------------------------------------
+\RequirePackage{iftex}
+\ifPDFTeX
+  \PackageError{modernnewspaper}
+    {pdfLaTeX is not supported}
+    {Use XeLaTeX or LuaLaTeX for Unicode support}
+\fi
+
+% ----------------------------------------------------
+% Required packages
+% ----------------------------------------------------
+\RequirePackage{fontspec}
+\RequirePackage{geometry}
+\RequirePackage{multicol}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{setspace}
+
+% ----------------------------------------------------
+% Page layout
+% ----------------------------------------------------
+\geometry{
+  a4paper,
+  margin=20mm,
+  headsep=10mm
+}
+
+% ----------------------------------------------------
+% Fonts (safe defaults – user can override)
+% ----------------------------------------------------
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+
+% ----------------------------------------------------
+% Hyperref setup
+% ----------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  pdfcreator={modernnewspaper}
+}
+
+% ----------------------------------------------------
+% Metadata storage
+% ----------------------------------------------------
+\newcommand{\MN@PaperName}{}
+\newcommand{\MN@PaperSlogan}{}
+\newcommand{\MN@PaperLocation}{}
+\newcommand{\MN@PaperWebsite}{}
+\newcommand{\MN@PaperVolume}{}
+\newcommand{\MN@PaperIssue}{}
+\newcommand{\MN@PaperDate}{\today}
+
+% ----------------------------------------------------
+% Metadata setters (public API)
+% ----------------------------------------------------
+\newcommand{\SetPaperName}[1]{\renewcommand{\MN@PaperName}{#1}}
+\newcommand{\SetPaperSlogan}[1]{\renewcommand{\MN@PaperSlogan}{#1}}
+\newcommand{\SetPaperLocation}[1]{\renewcommand{\MN@PaperLocation}{#1}}
+\newcommand{\SetPaperWebsite}[1]{\renewcommand{\MN@PaperWebsite}{#1}}
+\newcommand{\SetPaperVolume}[1]{\renewcommand{\MN@PaperVolume}{#1}}
+\newcommand{\SetPaperIssue}[1]{\renewcommand{\MN@PaperIssue}{#1}}
+\newcommand{\SetPaperDate}[1]{\renewcommand{\MN@PaperDate}{#1}}
+
+% ----------------------------------------------------
+% Masthead
+% ----------------------------------------------------
+\newcommand{\MakePaperHeader}{
+  \begin{center}
+    {\Huge\bfseries \MN@PaperName \par}
+    \vspace{4pt}
+    {\itshape \MN@PaperSlogan \par}
+    \vspace{6pt}
+    {\small
+      \MN@PaperLocation \quad | \quad
+      Vol.~\MN@PaperVolume, No.~\MN@PaperIssue \quad | \quad
+      \MN@PaperDate \quad | \quad
+      \href{\MN@PaperWebsite}{\MN@PaperWebsite}
+    }
+  \end{center}
+  \vspace{1em}
+  \hrule
+  \vspace{1.5em}
+}
+
+% ----------------------------------------------------
+% Article styles (customisable)
+% ----------------------------------------------------
+\newcommand{\headlinestyle}{\Large\bfseries}
+\newcommand{\bylinestyle}{\itshape}
+\newcommand{\datelinestyle}{\small}
+
+% ----------------------------------------------------
+% Article commands
+% ----------------------------------------------------
+\newcommand{\headline}[1]{%
+  \par\bigskip
+  {\headlinestyle #1\par}
+  \medskip
+}
+
+\newcommand{\byline}[1]{%
+  {\bylinestyle By #1\par}
+  \smallskip
+}
+
+\newcommand{\dateline}[1]{%
+  {\datelinestyle #1\par}
+  \medskip
+}
+
+% ----------------------------------------------------
+% Article environment (recommended)
+% ----------------------------------------------------
+\newenvironment{article}{
+  \par
+  \setstretch{1.05}
+}{
+  \par\bigskip
+}
+
+% ----------------------------------------------------
+% Column helper
+% ----------------------------------------------------
+\newcommand{\BeginNewsColumns}[1]{\begin{multicols}{#1}}
+\newcommand{\EndNewsColumns}{\end{multicols}}
+
+% ----------------------------------------------------
+% End of package
+% ----------------------------------------------------
+\endinput
