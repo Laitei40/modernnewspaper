@@ -138,7 +138,7 @@ https://www.latex-project.org/lppl.txt
 
 ## 👤 Author
 
-**Laithon**
+**Laitei**
 
 GitHub: https://github.com/Laitei40
 Facebook: https://www.facebook.com/laitei.fb
