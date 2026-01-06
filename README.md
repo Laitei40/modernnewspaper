@@ -140,7 +140,8 @@ https://www.latex-project.org/lppl.txt
 
 **Laithon**
 
-GitHub: https://github.com/laithon
+GitHub: https://github.com/Laitei40
+Facebook: https://www.facebook.com/laitei.fb
 
 ---
 
