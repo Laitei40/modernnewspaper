@@ -1,63 +1,125 @@
 \documentclass{article}
-
-% Load the modern newspaper package
 \usepackage{modernnewspaper}
 
-% -------------------------------
-% Newspaper metadata
-% -------------------------------
+% ---------------------------------
+% Metadata
+% ---------------------------------
 \SetPaperName{Modern Newspaper}
-\SetPaperSlogan{Informing and educating for tomorrow}
+\SetPaperSlogan{Unicode Multilingual Test Edition}
 \SetPaperLocation{Yangon, Myanmar}
-\SetPaperWebsite{https://github.com/laitei40/modernnewspaper}
+\SetPaperWebsite{https://github.com/Laitei40/modernnewspaper}
 \SetPaperVolume{1}
-\SetPaperIssue{1}
+\SetPaperIssue{5}
 \SetPaperDate{\today}
 
 \begin{document}
+	
+	% =================================================
+	% PAGE 1 — FRONT PAGE
+	% =================================================
+	\MakePaperHeader
+	
+	\BeginNewsColumns{3}
+	
+	% ---------------- Myanmar ----------------
+	\begin{article}
+		\headline{မြန်မာဘာသာ}
+		\byline{Laitei}
+		
+		{\MyanmarFont
+			\DropCap{မ}ျန်မာစာသည် ယူနီကုဒ်အခြေခံဖြင့် ရေးသားရသော ဘာသာစကားဖြစ်ပြီး
+			ခေတ်မီ သတင်းစာပုံစံများတွင် မှန်ကန်စွာ ဖော်ပြနိုင်ရပါသည်။
+		}
+	\end{article}
+	
+	% ---------------- Arabic (RTL) ----------------
+	\EnableRTL
+	\SetByWord{بقلم}
+	
+	\begin{article}
+		\headline{اللغة العربية}
+		\byline{لايتي}
+		
+		{\ArabicFont
+			\DropCap{ا}للغة العربية تُكتب من اليمين إلى اليسار،
+			وهذا المثال يوضح دعم النصوص العربية في الأعمدة متعددة الصفحات.
+		}
+	\end{article}
+	
+	\DisableRTL
+	\SetByWord{By}
+	
+	% ---------------- Hindi ----------------
+	\begin{article}
+		\headline{हिन्दी भाषा}
+		\byline{Editor}
+		
+		{\DevaFont
+			\DropCap{ह}िन्दी देवनागरी लिपि में लिखी जाने वाली भाषा है।
+			यह उदाहरण यूनिकोड समर्थन को दर्शाता है।
+		}
+	\end{article}
+	
+	\EndNewsColumns
+	
+	% =================================================
+	% PAGE BREAK
+	% =================================================
+	\newpage
+	
+	% =================================================
+	% PAGE 2 — INNER PAGE (NEW HEADER)
+	% =================================================
+	
 
-% -------------------------------
-% Masthead
-% -------------------------------
-\MakePaperHeader
+\vspace{0.1em}
+\hrule
+\vspace{0.1em}
 
-% -------------------------------
-% Newspaper content
-% -------------------------------
-\BeginNewsColumns{2}
+\begin{center}
+{\small Modern Newspaper — Vol. 2, No. 1 \quad | \quad \today}
+\end{center}
 
-\begin{article}
-\headline{A Modern LaTeX Newspaper Package Is Born}
-\byline{Laitei}
+\vspace{0.1em}
+\hrule
+\vspace{0.1em}
 
-This is an example document demonstrating the
-\textbf{modernnewspaper} package. The goal of this package is to
-provide a clean, Unicode-first newspaper layout that works well for
-both print and digital publications.
 
-The package is designed for use with \textit{XeLaTeX} or
-\textit{LuaLaTeX} and supports multilingual text out of the box.
-
-Unicode test:
-
-\medskip
-\noindent
-မြန်မာစာ · العربية · हिन्दी · 中文 · English
-\end{article}
-
-\begin{article}
-\headline{Why a New Newspaper Package?}
-\byline{Editor}
-
-The traditional \texttt{newspaper} package is print-oriented and
-predates modern Unicode workflows. This project introduces native
-support for web metadata such as website URLs, modern typography, and
-clean extensibility.
-
-Future versions will include drop caps, image wrapping, RTL support,
-themes, and improved accessibility.
-\end{article}
-
-\EndNewsColumns
-
+	
+	\BeginNewsColumns{3}
+	
+	% ---------------- Chinese ----------------
+	\begin{article}
+		\headline{中文}
+		\byline{编辑}
+		
+		{\CJKFont
+			\DropCap{中}文在现代排版系统中对 Unicode 的支持非常重要。
+			本页展示了报纸内页的多语言排版效果。
+		}
+	\end{article}
+	
+	% ---------------- English ----------------
+	\begin{article}
+		\headline{English Language}
+		\byline{Editor}
+		
+		\DropCap{E}nglish now appears together with all other scripts correctly.
+		This inner page intentionally uses a simplified header,
+		which is typical in real-world newspaper layouts.
+	\end{article}
+	
+	% ---------------- Mixed article ----------------
+	\begin{article}
+		\headline{Multilingual Publishing Today}
+		\byline{Laitei}
+		
+		\DropCap{M}odern newspapers often publish content in multiple languages.
+		A Unicode-first LaTeX package makes it possible to present
+		Myanmar, Arabic, Hindi, Chinese, and English together
+		without layout conflicts.
+	\end{article}
+	
+	\EndNewsColumns
+	
 \end{document}
